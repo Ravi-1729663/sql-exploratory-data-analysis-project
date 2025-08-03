@@ -8,11 +8,6 @@ Purpose:
     - Geographic distribution of sold items
 *******************************************************************************************/
 
--- Update invalid category to 'Others' where category_id is 'CO_PE'
-UPDATE gold.dim_products
-SET category = 'Others'
-WHERE category_id = 'CO_PE';
-
 -- Total number of customers by country
 SELECT 
     country,
