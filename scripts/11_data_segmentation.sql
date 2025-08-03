@@ -36,3 +36,28 @@ SELECT
 FROM CTE
 GROUP BY customer_segment
 ORDER BY total_customers DESC;
+
+/*************************************************************************************************
+    PURPOSE:
+    Segment products into cost ranges and count how many products fall into each segment.
+*************************************************************************************************/
+
+SELECT 
+    cost_category,
+    COUNT(*) AS No_of_products
+FROM (
+    SELECT 
+        product_key,
+        produc_name,
+        cost,
+        CASE 
+            WHEN cost < 100 THEN 'Below ₹100'
+            WHEN cost BETWEEN 100 AND 500 THEN '₹100 - ₹500'
+            WHEN cost BETWEEN 501 AND 1000 THEN '₹501 - ₹1000'
+            ELSE 'Above ₹1000'
+        END AS cost_category
+    FROM gold.dim_products
+) AS t
+GROUP BY cost_category
+ORDER BY No_of_products DESC;
+
